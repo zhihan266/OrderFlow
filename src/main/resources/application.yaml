@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: orderflow-backend
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/orderflow?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    redis:
+      host: 192.168.125.131
+      port: 6380
+
+  rabbitmq:
+    host: 192.168.125.131
+    port: 5672
+    username: root
+    password: root
+
+    # 生产者确认
+    publisher-confirm-type: correlated
+
+    # 无法路由到Queue时返回消息
+    publisher-returns: true
+
+    template:
+      mandatory: true
+
+    listener:
+      simple:
+        acknowledge-mode: manual
+
+server:
+  port: 8080
+
+order:
+  timeout-seconds: 20
+
